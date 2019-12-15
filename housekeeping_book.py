@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import pyqtSlot
 
-class FirstTab(QWidget):
+class FirstTab(QWidget):	#	입력 탭
 	def __init__(self):
 		super(FirstTab, self).__init__()
 		self.init_widget()
@@ -45,7 +45,27 @@ class FirstTab(QWidget):
 		layout_1.addLayout(layout_2)
 		layout_1.addLayout(layout_3)
 
-		
+class SecondTab(QWidget):
+	def __init__(self):
+		super(SecondTab, self).__init__()
+		self.init_widget()
+
+	def init_widget(self):
+		lb_1 = QLabel()
+		lb_2 = QLabel()
+
+		lb_1.setText("지출 : ")
+		lb_2.setText("수입 : ")
+
+		layout_1 = QBoxLayout(QBoxLayout.LeftToRight, self)
+		layout_2 = QBoxLayout(QBoxLayout.TopToBottom)
+		layout_3 = QBoxLayout(QBoxLayout.TopToBottom)
+
+		layout_2.addWidget(lb_1)
+		layout_2.addWidget(lb_2)
+
+		layout_1.addLayout(layout_2)
+		layout_1.addLayout(layout_3)
 
 
 class Form(QWidget):
@@ -65,7 +85,7 @@ class Form(QWidget):
 		form_lbx.addWidget(self.tab)
 
 		self.tab.addTab(FirstTab(), "입력")
-#self.tab.addTab(SecondTab(), "내역 확인")
+		self.tab.addTab(SecondTab(), "내역 확인")
 
 
 if __name__ == "__main__":
