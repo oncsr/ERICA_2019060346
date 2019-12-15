@@ -1,3 +1,4 @@
+import time
 import sys
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QLabel
@@ -9,6 +10,11 @@ from PyQt5.QtWidgets import QApplication
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import pyqtSlot
+
+def CurrentTime():
+	cur = time.gmtime(time.time())
+	real = str(cur.tm_year) + '/' + str(cur.tm_mon) + '/' + str(cur.tm_mday) + ' ' + str(cur.tm_hour) + ':' + str(cur.tm_mday) + ':' + str(cur.tm_sec)
+	return real
 
 class FirstTab(QWidget):	#	입력 탭
 	def __init__(self):
@@ -53,14 +59,16 @@ class SecondTab(QWidget):
 	def init_widget(self):
 		lb_1 = QLabel()
 		lb_2 = QLabel()
-
+		cur_time_lb = QLabel()
+		cur_time_lb.setText("{}".format(CurrentTime()))
 		lb_1.setText("지출 : ")
 		lb_2.setText("수입 : ")
 
 		layout_1 = QBoxLayout(QBoxLayout.LeftToRight, self)
 		layout_2 = QBoxLayout(QBoxLayout.TopToBottom)
 		layout_3 = QBoxLayout(QBoxLayout.TopToBottom)
-
+		
+		layout_2.addWidget(cur_time_lb)
 		layout_2.addWidget(lb_1)
 		layout_2.addWidget(lb_2)
 
