@@ -63,9 +63,14 @@ class FirstTab(QWidget):	#	입력 탭
 		layout_1.addLayout(layout_2)
 		layout_1.addLayout(layout_3)
 
+		pb_1.clicked.connect(SecondTab().outcome)
+		pb_2.clicked.connect(SecondTab().income)
+
 class SecondTab(QWidget):
 	def __init__(self):
 		super(SecondTab, self).__init__()
+		self.inc = 0
+		self.outc = 0
 		self.init_widget()
 
 	def init_widget(self):
@@ -86,6 +91,9 @@ class SecondTab(QWidget):
 
 		layout_1.addLayout(layout_2)
 		layout_1.addLayout(layout_3)
+
+	def outcome(self):
+		
 
 
 class Form(QWidget):
