@@ -19,7 +19,7 @@ def CurrentTime():			#	현재 시간
 	real = str(cur.tm_year) + '/' + str(cur.tm_mon) + '/' + str(cur.tm_mday) + ' ' + str(cur.tm_hour) + ':' + str(cur.tm_mday) + ':' + str(cur.tm_sec)
 	return real
 
-class FirstTab(QWidget):	#	입력 탭
+class FirstTab(QWidget):	#	가계부 탭
 	def __init__(self):
 		super(FirstTab, self).__init__()
 		self.init_widget()
@@ -27,18 +27,31 @@ class FirstTab(QWidget):	#	입력 탭
 	def init_widget(self):
 		pb_1 = QPushButton()
 		pb_2 = QPushButton()
-
-		le_1 = QLineEdit()
-		le_2 = QLineEdit()
-
-		lb_1 = QLabel()
-		lb_2 = QLabel()
-
 		pb_1.setText("등록")
 		pb_2.setText("등록")
 
-		lb_1.setText("지출")
-		lb_2.setText("수입")
+		le_1 = QLineEdit()
+		le_2 = QLineEdit()
+		
+		le_3 = QLineEdit()
+		le_4 = QLineEdit()
+	
+		le_1.setMaximumWidth(400)
+		le_2.setMaximumWidth(400)	
+
+		lb_1 = QLabel()
+		lb_2 = QLabel()
+		lb_3 = QLabel()
+		lb_4 = QLabel()
+		lb_5 = QLabel()
+		lb_6 = QLabel()
+		lb_1.setText("----------------  수입")
+		lb_2.setText("----------------  지출")
+		lb_3.setText("내용  ")
+		lb_4.setText("금액  ")
+		lb_5.setText("내용  ")
+		lb_6.setText("금액  ")
+		lb_3.setMaximumHeight(30)
 		
 		blank_1 = QLabel()
 		blank_2 = QLabel()
@@ -48,23 +61,29 @@ class FirstTab(QWidget):	#	입력 탭
 		layout_3 = QBoxLayout(QBoxLayout.TopToBottom)
 		
 		layout_2.addWidget(lb_1)
+		layout_2.addWidget(lb_3)
 		layout_2.addWidget(le_1)
+		layout_2.addWidget(lb_4)
+		layout_2.addWidget(le_3)
 		layout_2.addWidget(lb_2)
+		layout_2.addWidget(lb_5)
 		layout_2.addWidget(le_2)
+		layout_2.addWidget(lb_6)
+		layout_2.addWidget(le_4)
 
 		layout_3.addWidget(blank_1)
 		layout_3.addWidget(pb_1)
 		layout_3.addWidget(blank_2)
 		layout_3.addWidget(pb_2)
 		
-#		layout_3.addWidget(blank_1)
-#		layout_3.addWidget(blank_2)
-
 		layout_1.addLayout(layout_2)
 		layout_1.addLayout(layout_3)
+		
+		layout_4 = QBoxLayout(QBoxLayout.LeftToRight)
+		
 
-		pb_1.clicked.connect(SecondTab().outcome)
-		pb_2.clicked.connect(SecondTab().income)
+
+"""
 
 class SecondTab(QWidget):
 	def __init__(self):
@@ -84,7 +103,7 @@ class SecondTab(QWidget):
 		layout_1 = QBoxLayout(QBoxLayout.LeftToRight, self)
 		layout_2 = QBoxLayout(QBoxLayout.TopToBottom)
 		layout_3 = QBoxLayout(QBoxLayout.TopToBottom)
-		
+
 		layout_2.addWidget(cur_time_lb)
 		layout_2.addWidget(lb_1)
 		layout_2.addWidget(lb_2)
@@ -93,8 +112,8 @@ class SecondTab(QWidget):
 		layout_1.addLayout(layout_3)
 
 	def outcome(self):
-		
-
+				
+"""
 
 class Form(QWidget):
 	def __init__(self):
@@ -113,7 +132,6 @@ class Form(QWidget):
 		form_lbx.addWidget(self.tab)
 
 		self.tab.addTab(FirstTab(), "입력")
-		self.tab.addTab(SecondTab(), "내역 확인")
 
 
 if __name__ == "__main__":
