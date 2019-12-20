@@ -40,11 +40,11 @@ class Form(QWidget):
 		form_lbx.addLayout(self.lay2)
 
 	def Plus(self):
-		self.cnt = self.cnt + int(self.le.text())
+		self.cnt = self.cnt + float(self.le.text())
 		self.lb.setText("ans : " + str(self.cnt))
 
 	def Minus(self):
-		self.cnt = self.cnt - int(self.le.text())
+		self.cnt = self.cnt - float(self.le.text())
 		self.lb.setText("ans : " + str(self.cnt))
 	
 
