@@ -51,7 +51,6 @@ class FirstTab(QWidget):	#	가계부 탭
 		lb_4.setText("금액  ")
 		lb_5.setText("내용  ")
 		lb_6.setText("금액  ")
-		lb_3.setMaximumHeight(30)
 		
 		blank_1 = QLabel()
 		blank_2 = QLabel()
@@ -79,9 +78,29 @@ class FirstTab(QWidget):	#	가계부 탭
 		layout_1.addLayout(layout_2)
 		layout_1.addLayout(layout_3)
 		
-		layout_4 = QBoxLayout(QBoxLayout.LeftToRight)
+#		layout_4 = QBoxLayout(QBoxLayout.LeftToRight)
+		pb_1.clicked.connect(income)
+		pb_2.clicked.connect(outcome)
+"""
+
+	def goodmoney(money):
+		gmoney = ""
+		cnt = 0
+		for i in money:
+			
+"""
+
+	def income(self):
+#		money = goodmoney(le_2.text())
+		text = CurrentTime() + "," + le_1.text() + "," + le_2.text()
+		f = open("income.txt","w")
 		
 
+
+	def outcome(self):
+#		money = goodmoney(le_4.text())
+		text = CurrentTime() + "," + le_3.text() + "," + le_2.text()
+		f = open("outcome.txt","w")
 
 """
 
