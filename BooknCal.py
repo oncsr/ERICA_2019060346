@@ -122,7 +122,10 @@ class HouseBookTab(QWidget):	#	가계부 탭
 	def init_widget(self):
 		self.ivalerr = 0
 		self.ovalerr = 0
-	
+		
+		self.imoneysum = 0
+		self.omoneysum = 0
+
 		pb_1 = QPushButton()
 		pb_2 = QPushButton()
 		pb_1.setText("등록")
@@ -192,12 +195,9 @@ class HouseBookTab(QWidget):	#	가계부 탭
 		self.twadd()
 		
 		pb_1.clicked.connect(self.income)
-		pb_1.clicked.connect(self.twadd)
 		pb_2.clicked.connect(self.outcome)
-		pb_2.clicked.connect(self.twadd)
-
+		
 	def twadd(self):
-		moneysum = 0
 		self.root_1 = self.tw_1.invisibleRootItem()
 		f = open("income.txt","r")
 		for i in f:
@@ -208,14 +208,17 @@ class HouseBookTab(QWidget):	#	가계부 탭
 			item.setText(1, text)
 			item.setText(2, money)
 			self.root_1.addChild(item)
-			moneysum += int(money)
+			try:
+				self.imoneysum += int(money)
+			except ValueError:
+				self.ivalerr = 1
+
 		if(self.ivalerr == 1):
 			self.lb_7.setText("enter correct money")
 		else:
-			self.lb_7.setText("수입 총액 : +{}".format(moneysum))
+			self.lb_7.setText("수입 총액 : +{}".format(self.imoneysum))
 		f.close()
 
-		moneysum = 0
 		self.root_2 = self.tw_2.invisibleRootItem()
 		t = open("outcome.txt","r")
 		for j in t:
@@ -226,44 +229,64 @@ class HouseBookTab(QWidget):	#	가계부 탭
 			item.setText(1, text)
 			item.setText(2, money)
 			self.root_2.addChild(item)
-			moneysum += int(money)
+			try:
+				self.omoneysum += int(money)
+			except ValueError:
+				self.ovalerr = 1
+
 		if(self.ovalerr == 1):
 			self.lb_8.setText("enter correct money")
 		else:
-			self.lb_8.setText("지출 총액 : -{}".format(moneysum))
+			self.lb_8.setText("지출 총액 : -{}".format(self.omoneysum))
 		t.close()
 
 	def income(self):
 		try:
-			int(self.le_3.text())
+			self.imoneysum += int(self.le_3.text())
 		except ValueError:
 			self.le_1.setText("")
 			self.le_3.setText("")
-			self.ivalerr = 1
+			self.lb_7.setText("enter correct money")
 			return
 		
-		self.ivalerr = 0
+		self.lb_7.setText("수입 총액 : +{}".format(self.imoneysum))
 		f = open("income.txt","a")
 		text = CurrentTime() + "," + self.le_1.text() + "," + self.le_3.text() + "\n"
 		f.write(text)
 		f.close()
+		item = QTreeWidgetItem()
+		date = CurrentDay(CurrentTime())
+		text = self.le_1.text()
+		money = self.le_3.text()
+		item.setText(0, date)
+		item.setText(1, text)
+		item.setText(2, money)
+		self.root_1.addChild(item)
 		self.le_1.setText("")
 		self.le_3.setText("")
 
 	def outcome(self):
 		try:
-			int(self.le_4.text())
+			self.omoneysum += int(self.le_4.text())
 		except ValueError:
 			self.le_2.setText("")
 			self.le_4.setText("")
-			self.ovalerr = 1
+			self.lb_8.setText("enter correct money")
 			return
 		
-		self.ovalerr = 0
+		self.lb_8.setText("지출 총액 : -{}".format(self.omoneysum))
 		f = open("outcome.txt","a")
 		text = CurrentTime() + "," + self.le_2.text() + "," + self.le_4.text() + "\n"
 		f.write(text)
 		f.close()
+		item = QTreeWidgetItem()
+		date = CurrentDay(CurrentTime())
+		text = self.le_2.text()
+		money = self.le_4.text()
+		item.setText(0, date)
+		item.setText(1, text)
+		item.setText(2, money)
+		self.root_2.addChild(item)
 		self.le_2.setText("")
 		self.le_4.setText("")
 
