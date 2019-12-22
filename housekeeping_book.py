@@ -1,15 +1,5 @@
 import time
 import sys
-#from PyQt5.QtWidgets import QWidget
-#from PyQt5.QtWidgets import QLabel
-#from PyQt5.QtWidgets import QLineEdit
-#from PyQt5.QtWidgets import QBoxLayout
-#from PyQt5.QtWidgets import QPushButton
-#from PyQt5.QtWidgets import QTabWidget
-#from PyQt5.QtWidgets import QApplication
-
-#from PyQt5.QtCore import Qt
-#from PyQt5.QtCore import pyqtSlot
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -17,6 +7,11 @@ from PyQt5.QtCore import *
 def CurrentTime():			#	현재 시간
 	cur = time.gmtime(time.time())
 	real = str(cur.tm_year) + '/' + str(cur.tm_mon) + '/' + str(cur.tm_mday) + ' ' + str(cur.tm_hour) + ':' + str(cur.tm_mday) + ':' + str(cur.tm_sec)
+	return real
+
+def CurrentDay():			#	현재 날짜
+	cur = time.gmtime(time.time())
+	real = str(cur.tm_year) + '/' + str(cur.tm_mon) + '/' + str(cur.tm_mday)
 	return real
 
 class FirstTab(QWidget):	#	가계부 탭
@@ -29,16 +24,16 @@ class FirstTab(QWidget):	#	가계부 탭
 		pb_2 = QPushButton()
 		pb_1.setText("등록")
 		pb_2.setText("등록")
-
-		le_1 = QLineEdit()
-		le_2 = QLineEdit()
 		
-		le_3 = QLineEdit()
-		le_4 = QLineEdit()
-	
-		le_1.setMaximumWidth(400)
-		le_2.setMaximumWidth(400)	
-
+		self.le_1 = QLineEdit()
+		self.le_2 = QLineEdit()
+		
+		self.le_3 = QLineEdit()
+		self.le_4 = QLineEdit()
+		
+		self.le_1.setMaximumWidth(400)
+		self.le_2.setMaximumWidth(400)	
+		
 		lb_1 = QLabel()
 		lb_2 = QLabel()
 		lb_3 = QLabel()
@@ -54,22 +49,22 @@ class FirstTab(QWidget):	#	가계부 탭
 		
 		blank_1 = QLabel()
 		blank_2 = QLabel()
-
+		
 		layout_1 = QBoxLayout(QBoxLayout.LeftToRight, self)
 		layout_2 = QBoxLayout(QBoxLayout.TopToBottom)
 		layout_3 = QBoxLayout(QBoxLayout.TopToBottom)
 		
 		layout_2.addWidget(lb_1)
 		layout_2.addWidget(lb_3)
-		layout_2.addWidget(le_1)
+		layout_2.addWidget(self.le_1)
 		layout_2.addWidget(lb_4)
-		layout_2.addWidget(le_3)
+		layout_2.addWidget(self.le_3)
 		layout_2.addWidget(lb_2)
 		layout_2.addWidget(lb_5)
-		layout_2.addWidget(le_2)
+		layout_2.addWidget(self.le_2)
 		layout_2.addWidget(lb_6)
-		layout_2.addWidget(le_4)
-
+		layout_2.addWidget(self.le_4)
+		
 		layout_3.addWidget(blank_1)
 		layout_3.addWidget(pb_1)
 		layout_3.addWidget(blank_2)
@@ -78,61 +73,25 @@ class FirstTab(QWidget):	#	가계부 탭
 		layout_1.addLayout(layout_2)
 		layout_1.addLayout(layout_3)
 		
-#		layout_4 = QBoxLayout(QBoxLayout.LeftToRight)
-		pb_1.clicked.connect(income)
-		pb_2.clicked.connect(outcome)
-"""
-
-	def goodmoney(money):
-		gmoney = ""
-		cnt = 0
-		for i in money:
-			
-"""
+		pb_1.clicked.connect(self.income)
+		pb_2.clicked.connect(self.outcome)
 
 	def income(self):
-#		money = goodmoney(le_2.text())
-		text = CurrentTime() + "," + le_1.text() + "," + le_2.text()
-		f = open("income.txt","w")
-		
-
-
-	def outcome(self):
-#		money = goodmoney(le_4.text())
-		text = CurrentTime() + "," + le_3.text() + "," + le_2.text()
-		f = open("outcome.txt","w")
-
-"""
-
-class SecondTab(QWidget):
-	def __init__(self):
-		super(SecondTab, self).__init__()
-		self.inc = 0
-		self.outc = 0
-		self.init_widget()
-
-	def init_widget(self):
-		lb_1 = QLabel()
-		lb_2 = QLabel()
-		cur_time_lb = QLabel()
-		cur_time_lb.setText("{}".format(CurrentTime()))
-		lb_1.setText("지출 : ")
-		lb_2.setText("수입 : ")
-
-		layout_1 = QBoxLayout(QBoxLayout.LeftToRight, self)
-		layout_2 = QBoxLayout(QBoxLayout.TopToBottom)
-		layout_3 = QBoxLayout(QBoxLayout.TopToBottom)
-
-		layout_2.addWidget(cur_time_lb)
-		layout_2.addWidget(lb_1)
-		layout_2.addWidget(lb_2)
-
-		layout_1.addLayout(layout_2)
-		layout_1.addLayout(layout_3)
+		f = open("income.txt","a")
+		text = CurrentTime() + "," + self.le_1.text() + "," + self.le_3.text() + "\n"
+		f.write(text)
+		f.close()
+		self.le_1.setText("")
+		self.le_3.setText("")
 
 	def outcome(self):
-				
-"""
+		f = open("outcome.txt","a")
+		text = CurrentTime() + "," + self.le_2.text() + "," + self.le_4.text() + "\n"
+		f.write(text)
+		f.close()
+		self.le_2.setText("")
+		self.le_4.setText("")
+
 
 class Form(QWidget):
 	def __init__(self):
